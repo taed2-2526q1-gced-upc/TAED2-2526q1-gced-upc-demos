@@ -1,0 +1,80 @@
+{
+  "expectations": [
+    {
+      "id": "8c8d7632-d0c0-45cd-974d-5a988b4410b6",
+      "kwargs": {
+        "column": "text"
+      },
+      "meta": {},
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "d8556d1b-6f0c-4ad1-8ae4-238e9e99d629",
+      "kwargs": {
+        "column": "text",
+        "type_": "str"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_of_type"
+    },
+    {
+      "id": "c32e7e12-92b7-4059-a681-03c653112e51",
+      "kwargs": {
+        "column": "text"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "74cf6a6d-7aeb-4e27-adfb-390b0934326b",
+      "kwargs": {
+        "column": "text"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "4bfab621-5ccc-47b4-b1b8-0a38d069014f",
+      "kwargs": {
+        "column": "labels"
+      },
+      "meta": {},
+      "type": "expect_column_to_exist"
+    },
+    {
+      "id": "23e0b9aa-c29c-4f63-9fd2-0759ec7aa3e3",
+      "kwargs": {
+        "column": "labels",
+        "type_": "int"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_of_type"
+    },
+    {
+      "id": "42190fe8-7f81-4d55-8b29-dec4a3b1dca8",
+      "kwargs": {
+        "column": "labels",
+        "value_set": [
+          0,
+          1
+        ]
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_in_set"
+    },
+    {
+      "id": "109cb138-55c4-45c9-8b65-e943bf1505f1",
+      "kwargs": {
+        "column": "labels"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": "11dc7cf6-9413-49e9-8ac3-8fda23d9d9fc",
+  "meta": {
+    "great_expectations_version": "1.4.3"
+  },
+  "name": "data_quality_validation",
+  "notes": null
+}

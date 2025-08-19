@@ -1,0 +1,134 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: python3 -m src.data.download_raw_dataset
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: a883d0dec1704d3fcd889893bd8d4c48
+      size: 1290
+    - path: src/data/download_raw_dataset.py
+      hash: md5
+      md5: 810f4f307477b783266e99604b847e57
+      size: 649
+    outs:
+    - path: data/raw/imdb.parquet
+      hash: md5
+      md5: 8ba8a331da61fbf65a154c374da782d1
+      size: 25169132
+  preprocess:
+    cmd: python3 -m src.data.preprocess
+    deps:
+    - path: data/raw/imdb.parquet
+      hash: md5
+      md5: 8ba8a331da61fbf65a154c374da782d1
+      size: 25169132
+    - path: src/config.py
+      hash: md5
+      md5: a883d0dec1704d3fcd889893bd8d4c48
+      size: 1290
+    - path: src/data/preprocess.py
+      hash: md5
+      md5: f6a9a45818fb4648feeab6eec739880f
+      size: 1603
+    outs:
+    - path: data/interim/imdb_cleaned.parquet
+      hash: md5
+      md5: 294e39e32874afecd71ca8b19b133b5f
+      size: 25778404
+  split:
+    cmd: python3 -m src.data.split_data
+    deps:
+    - path: data/interim/imdb_cleaned.parquet
+      hash: md5
+      md5: 294e39e32874afecd71ca8b19b133b5f
+      size: 25778404
+    - path: src/config.py
+      hash: md5
+      md5: a883d0dec1704d3fcd889893bd8d4c48
+      size: 1290
+    - path: src/data/split_data.py
+      hash: md5
+      md5: 4382ad1339e71501b336b2320ded9aec
+      size: 1148
+    outs:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: ef6cb503ef27b981bb9bd0a976fb2fb3
+      size: 2613951
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: cc999769d5051de562fa0583b425be7c
+      size: 18026684
+    - path: data/processed/validation.parquet
+      hash: md5
+      md5: 9e533ef8e2c19823c3988506cf4c0e2b
+      size: 5171217
+  train:
+    cmd: python3 -m src.modeling.train
+    deps:
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: cc999769d5051de562fa0583b425be7c
+      size: 18026684
+    - path: data/processed/validation.parquet
+      hash: md5
+      md5: 9e533ef8e2c19823c3988506cf4c0e2b
+      size: 5171217
+    - path: src/config.py
+      hash: md5
+      md5: a883d0dec1704d3fcd889893bd8d4c48
+      size: 1290
+    - path: src/modeling/train.py
+      hash: md5
+      md5: 8e2edf2e1ca89cc25fe2b98864d7651b
+      size: 3563
+    outs:
+    - path: models/distilbert-imdb
+      hash: md5
+      md5: 2988d58a7d08c3ae0e72931685db5086.dir
+      size: 268783444
+      nfiles: 7
+    - path: models/distilbert-imdb-checkpoint
+      hash: md5
+      md5: 8620308429cd0c916167886a04e6445c.dir
+      size: 804528074
+      nfiles: 11
+  evaluate:
+    cmd: python3 -m src.modeling.evaluate
+    deps:
+    - path: data/processed/test.parquet
+      hash: md5
+      md5: fe80344fbb6c1cb5257c8e91da71f07c
+      size: 2613371
+    - path: models/distilbert-imdb
+      hash: md5
+      md5: 267dbc22d66ac42d6ba5fa687e8c4e43.dir
+      size: 268783346
+      nfiles: 7
+    - path: src/modeling/evaluate.py
+      hash: md5
+      md5: 7e6451f0642f20a55ba46abf29973138
+      size: 1121
+  configure_gx:
+    cmd: python3 -m src.data.gx_context_configuration
+    deps:
+    - path: src/data/gx_context_configuration.py
+      hash: md5
+      md5: 3a61ff2758fdfc14e6c6003f5162a6be
+      size: 3718
+  validate-data:
+    cmd: python3 -m src.data.validate_data
+    deps:
+    - path: data/interim/imdb_cleaned.parquet
+      hash: md5
+      md5: 294e39e32874afecd71ca8b19b133b5f
+      size: 25778404
+    - path: src/data/gx_context_configuration.py
+      hash: md5
+      md5: 3a61ff2758fdfc14e6c6003f5162a6be
+      size: 3718
+    - path: src/data/validate_data.py
+      hash: md5
+      md5: f211bd7615c06e3a36d2c139f0953a69
+      size: 776

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "d33f26ce-74b7-4734-8f93-28ece0dc7119",
+      "name": "clean_imdb_reviews"
+    },
+    "batch_definition": {
+      "id": "5f42af5d-1c30-4c25-ad2d-34a1e2bc1a4b",
+      "name": "imdb_reviews_data"
+    },
+    "datasource": {
+      "id": "0b2f5324-8d45-478e-a166-5c0aadb1f339",
+      "name": "pandas"
+    }
+  },
+  "id": "833edfa3-0cbb-495f-9661-5b4a73eedaf5",
+  "name": "clean_data_validator",
+  "suite": {
+    "id": "11dc7cf6-9413-49e9-8ac3-8fda23d9d9fc",
+    "name": "data_quality_validation"
+  }
+}
