@@ -43,6 +43,9 @@ Storage](https://dagshub.com/docs/feature_guide/dagshub_storage/#working-with-th
     <img src="static/dagshub-dvc-config.png" width="700" alt="Dagshub Storage configuration">
 </p>
 
+>[!WARNING]
+> Make sure you select the **HTTP** option when configuring the remote storage on DagsHub.
+
 If you have correctly configured DVC to use Dagshub Storage as its remote, your `.dvc/config` file should look like [this](../.dvc/config).
 
 ## Working with DVC

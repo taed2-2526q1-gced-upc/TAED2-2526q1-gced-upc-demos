@@ -101,7 +101,8 @@ context.checkpoints.add_or_update(checkpoint)
 
 For a complete example of a possible configuration, see the [gx_context_configuration.py](../src/data/gx_context_configuration.py) file.
 
-> See the [Great Expectations documentation](https://docs.greatexpectations.io/docs/core/set_up_a_gx_environment/create_a_data_context) for more information on how to configure your context.
+>[!TIP]
+>See the [Great Expectations documentation](https://docs.greatexpectations.io/docs/core/set_up_a_gx_environment/create_a_data_context) for more information on how to configure your context.
 
 
 ## Validate the data againts your expectations

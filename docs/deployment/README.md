@@ -6,7 +6,6 @@ cloud provider.
 5. [Deploy in GCP](04_deploy_gcp.md). Guide to deploy ML models using an API in an GCP VM.
 6. [Deploy in Azure](05_deploy_azure.md). Guide to deploy ML models using an API in an Azure VM.
 7. [Deploy in Okteto](06_deploy_okteto.md). Guide to deploy ML models using an API in Okteto platform.
-8. [FAQ](FAQ.md). Documentation with problems arised during deployments.
 
 ## Cloud providers
 <pre/>

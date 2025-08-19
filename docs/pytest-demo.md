@@ -6,47 +6,67 @@ learning project.
 - [Install Pytest](#install-pytest)
 - [Create the test file](#create-the-test-file)
 - [Run the tests](#run-the-tests)
+- [Measure test coverage (Optional)](#measure-test-coverage-optional)
 
 ## Install Pytest
-The first step is to install `pytest` and `pytest-cov` to measure the code coverage. To do this, we can run the
+The first step is to install `pytest`. To do this, we can run the
 following command:
 ```bash
-poetry add -G dev pytest pytest-cov
+uv add --group dev pytest
 ```
 
 ## Create the test file
-We can now create a test file called [`test_models.py`](../tests/test_models.py) in the `tests` directory. In this file,
-we will create a test to check that the `predict` function of a Logistic Regression model trained on the Iris dataset
-returns the expected value.
+We can now create a test file called [`test_model.py`](../tests/test_model.py) in the `tests` directory. In this file,
+we will create a test to check that our model meets our expectations.
 
-To do this, we will create a fixture called `lr_model` that will load the model from the `models` directory. Then, we
-will create a test function called `test_iris_lr_model` that will use the `model` fixture to load the model and check
-that the prediction is correct.
+To do this, we will create a fixture called `pipe` that will load the model from the `models` directory and another 
+called `test_ds` that will load the test dataset. Then, we will create a test function called `test_model_accuracy` that
+will use the previous fixtures to load the model and check that the model accuracy on the test set is above a certain threshold.
 
-In this case, we want to test the model for multiple inputs. To do this, we will use the `pytest.mark.parametrize`
+Next, we create a second test called `test_model_predictions` to see if the model still works when changing one word in
+the input. In this case, we want to test the model for multiple inputs. To do this, we will use the `pytest.mark.parametrize`
 decorator to parametrize the test function. This decorator receives the names of the parameters and a list of values.
 
-Finally, we will add the following lines to the [`pyproject.toml`](../pyproject.toml) file to measure the code coverage:
+Finally, we will add the following lines to the [`pyproject.toml`](../pyproject.toml) file to configure `pytest`:
 ```toml
-[tool.coverage.run]
-omit = ["src/prepare.py", "src/evaluate.py", "src/train.py", "src/train_api_demo_models.py"]
-
 [tool.pytest.ini_options]
 pythonpath = "."
 testpaths = "tests"
-addopts = "--junitxml=out/tests-report.xml --cov=src --cov-report=html:reports/coverage"
 ```
 
 In detail:
-- `omit` specifies the files that should be omitted from the coverage report;
 - `pythonpath` specifies the path to the source code;
 - `testpaths` specifies the directory where the tests are located;
-- `addopts` specifies the options to pass to `pytest`. In this case, we are specifying the path to the results file that
-- can be read by continuous integration tools, the path to the module for the coverage report and the directory where
-- the coverage report should be saved.
 
 ## Run the tests
 We can now run the tests using the following command:
 ```bash
 pytest
 ```
+
+## Measure test coverage (Optional)
+When the source code grows it can be difficult to know what is not being tested. For such cases, we can use the `pytest-cov` package to measure the test coverage. This package will generate a coverage report that shows which parts of the code are not being tested.
+
+To install it we can run the following command:
+```bash
+uv add --group dev pytest-cov
+```
+
+Then, we can add the following to our `pyproject.toml` file:
+
+```toml
+[tool.coverage.run]
+omit = ["src/data/validate_data.py", "src/data/gx_context_configuration.py", "src/modeling/train.py"]
+
+[tool.pytest.ini_options]
+...
+addopts = "--junitxml=out/tests-report.xml --cov=src --cov-report=html:reports/coverage"
+```
+
+In detail:
+- `omit` specifies the files that should be omitted from the coverage report. In this case, we omit some scripts that only
+call functions that have been defined elsewhere.
+
+- `addopts` specifies options to pass to `pytest`. In this case, we are specifying the path to the test results file
+(`out/tests-report.xml`), which can be read by continuous integration tools, the path to the module we want to measure
+the coverage (`src`), and the format (HTML) and directory where the coverage report should be saved (`reports/coverage`).

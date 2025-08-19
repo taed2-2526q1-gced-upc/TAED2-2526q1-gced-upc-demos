@@ -80,9 +80,8 @@ the following command:
 git remote add origin url-to-remote-repository
 ```
 
-> **Note:** Remote repositories require authentication. If you are using GitHub, you can create an SSH key and add it to
-> your GitHub account. Then, you can use the SSH URL of the repository to avoid entering your credentials every time you
-> push your commits. See [Connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) for more information.
+>[!Tip]
+Remote repositories require authentication. If you are using GitHub, you can create an SSH key and add it to your GitHub account. Then, you can use the SSH URL of the repository to avoid entering your credentials every time you push your commits. See [Connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) for more information.
 
 Once the remote is added, we need to tell Git that our local `main` branch is related to the remote `main` branch.
 This can be done with the following commands:

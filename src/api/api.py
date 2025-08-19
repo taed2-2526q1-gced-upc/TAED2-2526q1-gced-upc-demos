@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from loguru import logger
-from pydantic import ValidationError
 from transformers import pipeline
 
 from src.api.schemas import PredictionRequest, PredictionResponse

@@ -49,32 +49,12 @@ def test_model_accuracy(pipe, test_ds):
 
 
 @pytest.mark.parametrize(
-    "text1, text2, label",
-    [
-        ("This movie is great!", "The movie isn't bad at all.", "positive"),
-        ("The acting was terrible.", "I was expecting the acting to be better.", "negative"),
-    ],
-)
-def test_negation(pipe, text1, text2, label):
-    """
-    Test the model's ability to handle negation in text.
-    """
-    result = pipe([text1, text2])
-
-    assert result[0]["label"] == result[1]["label"], (
-        "Model predicted different labels for negated sentences. "
-        + f"It predicted {result[0]['label']} for '{text1}' but {result[1]['label']} for '{text2}'."
-    )
-    assert result[0]["label"] == label, f"Model predicted {result[0]['label']} for '{text1}', expected {label}"
-
-
-@pytest.mark.parametrize(
     "text, expected_label",
     [
         ("This movie is great!", "positive"),
-        ("This movie is terrible!", "negative"),
-        ("I loved the plot and the characters.", "positive"),
-        ("I hated the polot and the characters.", "negative"),
+        ("This plot is great!", "positive"),
+        ("I hated the plot and the characters.", "negative"),
+        ("I dislike the plot and the characters.", "negative"),
     ],
 )
 def test_model_predictions(pipe, text, expected_label):

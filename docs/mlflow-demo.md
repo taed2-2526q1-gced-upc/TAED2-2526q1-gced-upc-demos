@@ -34,7 +34,7 @@ environment valiables shown in the Dagshub repository.
 To add the environment variables to our project we can use a `.env` file the following content:
 
 ```bash
-MLFLOW_TRACKING_URI=https://dagshub.com/<DagsHub-user-name>/<reposytory-name>.mlflow
+MLFLOW_TRACKING_URI=https://dagshub.com/<DagsHub-user-name>/<repository-name>.mlflow
 MLFLOW_TRACKING_USERNAME=your_username
 MLFLOW_TRACKING_PASSWORD=your_token
 ```
@@ -47,7 +47,10 @@ from dotenv import load_dotenv
 load_dotenv()
 ```
 
-**Remember to include the `.env` file in the `.gitignore` file to avoid committing your credentials to the repository.**
+You can find a template for your `.env` file in the root of the project as [.env.template](../.env.template). You can copy it to a new file called `.env` and fill in the values for your Dagshub repository.
+
+>[!IMPORTANT]
+>Remember to include the `.env` file in the `.gitignore` file to avoid committing your credentials to the repository.
 
 ## MLflow experiments
 MLflow organizes executions into experiments, runs, and artifacts. An experiment is a set of runs that share the same
@@ -72,7 +75,8 @@ MLflow comes with automatic logging APIs for several machine learning frameworks
 [`mlflow.<framework>.autolog()`](https://mlflow.org/docs/latest/tracking.html#automatic-logging) function to automatically
 log the parameters, metrics, and model artifacts from our machine learning code.
 
-> **Note:** Autologging is only supported for certain versions of the frameworks. If you are using the latest version of
+> [!Note]
+> Autologging is only supported for certain versions of the frameworks. If you are using the latest version of
 some of these frameworks you might get some errors.
 See the [MLflow documentation](https://mlflow.org/docs/latest/tracking.html#automatic-logging) for more details.
 

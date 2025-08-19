@@ -50,39 +50,25 @@ ssh -i ~/.ssh/my-key cloud_user@X.X.X.X
 2. Clone the GitHub repository containing the ML model and API code using the following command:
 
 ```shell
-git clone https://github.com/fjdurlop/deploy-GAISSA.git
+git clone git@github.com:taed2-2526q1-gced-upc/TAED2-2526q1-gced-upc-demos.git
 ```
-## Step 5: Set Up the Environment
-
-1. Create a virtual environment for the API using [venv](https://docs.python.org/3/library/venv.html), [virtualenv](https://virtualenv.pypa.io/en/latest/), [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html), [poetry](https://python-poetry.org/), or any other tool of your choice. For example, using venv:
-
+## Step 5: Set up the environment
+1. Install the project dependencies with uv:
 ```shell
-python3 -m venv venv
-```
-
-2. Activate the virtual environment.
-
-```shell
-source venv/bin/activate
+cd TAED2-2526q1-gced-upc-demos
+uv sync --all-groups
 ```
 
-3. Install the necessary dependencies and packages required for running the API.
+2. Update the .env file with your environment variables and configure your DVC credentials.
 
+3. Download your models with DVC:
 ```shell
-./scripts/setenv.sh
-```
-
-```shell
-
-python3 -m pip install -r requirements.txt
-
+uv run dvc pull train
 ```
 
 ## Step 6: Run the API
 
-1. Change into the cloned repository directory on the virtual machine.
-
-2. Start the API server:
+1. Start the API server:
 
     ```bash
     uvicorn app.api:app  --host 0.0.0.0 --port 80

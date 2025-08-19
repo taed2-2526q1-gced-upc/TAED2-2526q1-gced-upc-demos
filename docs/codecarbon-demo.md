@@ -4,10 +4,6 @@ package to track the carbon emissions of machine learning projects.
 
 ## Contents <!-- omit in toc -->
 - [Install CodeCarbon](#install-codecarbon)
-  - [Using poetry](#using-poetry)
-  - [Using pdm](#using-pdm)
-  - [Using pipenv](#using-pipenv)
-  - [Using pip](#using-pip)
 - [Tracking emissions](#tracking-emissions)
   - [Using the `EmissionsTracker` class](#using-the-emissionstracker-class)
   - [Using the `EmissionsTracker` context manager](#using-the-emissionstracker-context-manager)
@@ -17,24 +13,8 @@ package to track the carbon emissions of machine learning projects.
 ## Install CodeCarbon
 First, we need to install CodeCarbon. We can do this by running the following command:
 
-### Using poetry
 ```bash
-poetry add codecarbon
-```
-
-### Using pdm
-```bash
-pdm add codecarbon
-```
-
-### Using pipenv
-```bash
-pipenv install codecarbon
-```
-
-### Using pip
-```bash
-pip install codecarbon
+uv add codecarbon
 ```
 
 ## Tracking emissions
@@ -49,7 +29,8 @@ tracker.start()
 # Your training code here
 tracker.stop()
 ```
-> Note: The tracker.stop() returns the total emissions in CO2e (kg) as a float.
+> [!Note]
+> The tracker.stop() returns the total emissions in CO2e (kg) as a float.
 
 ### Using the `EmissionsTracker` context manager
 ```python
@@ -71,7 +52,8 @@ def training_function():
 For more information on each of these methods and their parameters, see the [CodeCarbon documentation](https://mlco2.github.io/codecarbon/parameters.html).
 
 When you run your code with one of these methods, CodeCarbon will track the emissions of your machine learning project and save them in a CSV file. In addition, it will display some information in the terminal similar to the following:
-```
+
+```log
 [codecarbon INFO @ 13:27:25] [setup] RAM Tracking...
 [codecarbon INFO @ 13:27:25] [setup] GPU Tracking...
 [codecarbon INFO @ 13:27:25] Tracking Nvidia GPU via pynvml
