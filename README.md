@@ -42,18 +42,34 @@ This project follows the structure proposed by Lanubile et al. [1].
             <td><a href="docs/mlflow-demo.md">MLflow demo</a></td>
         </tr>
         <tr>
-            <td rowspan="2"><b>Milestone 3 &mdash; Model building: QA</b></td>
+            <td rowspan="4"><b>Milestone 3 &mdash; Model building: QA</b></td>
             <td>Energy efficiency awareness</td>
             <td>CodeCarbon</td>
             <td><a href="docs/codecarbon-demo.md">CodeCarbon demo</a></td>
         </tr>
         <tr>
-            <td>Quality assurance for ML (static analysis + testing data and model)</td>
-            <td>Pynbilint (notebook + repository QA), Pylint or flake8, Pytest, Great Expectations or Deepchecks (computer vision tasks)</td>
+            <td>Quality assurance for ML: static analysis</td>
+            <td>Pynbilint (notebook + repository QA), Pylint, flake8</td>
             <td>
                 <a href="docs/pytest-demo.md">Pytest demo</a>,
                 <a href="docs/great-expectations-demo.md">Great Expectations demo</a>,
                 <a href="https://docs.deepchecks.com/stable/vision/auto_tutorials/quickstarts/plot_simple_classification_tutorial.html">Deepchecks demo</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Quality assurance for ML: testing data and model</td>
+            <td>Pytest, Great Expectations, Deepchecks (computer vision tasks)</td>
+            <td>
+                <a href="docs/pytest-demo.md">Pytest demo</a>,
+                <a href="docs/great-expectations-demo.md">Great Expectations demo</a>,
+                <a href="https://docs.deepchecks.com/stable/vision/auto_tutorials/quickstarts/plot_simple_classification_tutorial.html">Deepchecks demo</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Quality assurance for ML: non-functional requirements</td>
+            <td>SHAP, AIF360, TrustML</td>
+            <td>
+                <a href="https://shap.readthedocs.io/en/latest/text_examples.html">SHAP examples</a>
             </td>
         </tr>
         <tr>
@@ -69,6 +85,10 @@ This project follows the structure proposed by Lanubile et al. [1].
         </tr>
     </tbody>
 </table>
+
+## Additional tooling
+Besides the tools mentioned in the milestones you can find more MLOps tools [here](https://agate-tangerine-725.notion.site/MLOps-tools-255624cb2156801e9a98db82fd911da2?pvs=74).
+You might find some of them useful when developing your project.
 
 ## References
 [1] F. Lanubile, S. Martínez-Fernández, and L. Quaranta, "Teaching MLOps in Higher Education through Project-Based Learning." SEET@ICSE 2023: 95-100. doi: [10.1109/ICSE-SEET58685.2023.00015](https://doi.org/10.1109/ICSE-SEET58685.2023.00015).
