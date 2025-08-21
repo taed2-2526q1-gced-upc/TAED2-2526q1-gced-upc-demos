@@ -18,7 +18,7 @@ This project follows the structure proposed by Lanubile et al. [1].
             <td rowspan="2"><b>Milestone 1 &mdash; Project Inception</b></td>
             <td>Selection of problem and requirements engineering for ML</td>
             <td>Model and dataset cards (by Hugging Face)</td>
-            <td></td>
+            <td><a href="https://github.com/huggingface/datasets/blob/main/templates/README_guide.md">Dataset card template</a>, <a href="https://huggingface.co/docs/hub/model-card-annotated">Model card template</a></td>
         </tr>
         <tr>
             <td>Project coordination and communication</td>
