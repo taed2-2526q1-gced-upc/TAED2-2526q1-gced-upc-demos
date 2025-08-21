@@ -35,12 +35,18 @@ stages:
     - data/processed/validation.parquet
     - data/processed/test.parquet
   train:
-    cmd: python3 -m src.modeling.train
-    deps:
-    - src/modeling/train.py
-    - src/config.py
-    - data/processed/train.parquet
-    - data/processed/validation.parquet
-    outs:
-    - models/distilbert-imdb
-    - models/distilbert-imdb-checkpoint
+    foreach:
+      - hf_model: distilbert/distilbert-base-uncased
+        model_name: distilbert-imdb
+      - hf_model: distilbert/distilbert-base-uncased-finetuned-sst-2-english
+        model_name: distilbert-sst-imdb
+    do:
+      cmd: python3 -m src.modeling.train ${item.hf_model} ${item.model_name}
+      deps:
+      - src/modeling/train.py
+      - src/config.py
+      - data/processed/train.parquet
+      - data/processed/validation.parquet
+      outs:
+      - models/${item.model_name}
+      - models/${item.model_name}-checkpoint

@@ -23,7 +23,8 @@ dependencies = [
     "great-expectations>=1.4.3",
     "huggingface-hub[hf-xet]>=0.30.2",
     "ipywidgets>=8.1.7",
-    "mlflow>=2.22.0",
+    # Fix mlflow version to a compatible one with the DagsHub API
+    "mlflow>=2.22.0<3.0.0",
     "polars>=1.29.0",
     "python-dotenv",
     "scikit-learn>=1.6.1",
@@ -31,7 +32,7 @@ dependencies = [
     "torchvision>=0.22.0",
     "tqdm>=4.67.1",
     # Fix transformers version to a compatible one with mlflow
-    "transformers[torch]<=4.51.2",
+    "transformers[torch]<=4.55.0",
     "typer>=0.15.3",
     "uvicorn[standard]>=0.34.2",
     "loguru>=0.7.3",
@@ -40,15 +41,22 @@ dependencies = [
     "psutil>=7.0.0",
     "pynvml>=12.0.0",
     "deepchecks>=0.19.1",
+    "tiktoken>=0.11.0",
+    "sentencepiece>=0.2.1",
+    "click>=8.2.1",
 ]
 requires-python = ">3.10"
 
 [dependency-groups]
 dev = [
+    {include-group = "testing"},
+    {include-group = "linting"},
     "deptry>=0.23.0",
     "ipykernel>=6.29.5",
     "pip>=25.1.1",
     "pre-commit>=4.2.0",
+]
+linting = [
     "ruff>=0.11.8",
 ]
 testing = [
