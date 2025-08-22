@@ -100,7 +100,7 @@ force-sort-within-sections = true
 [tool.pytest.ini_options]
 pythonpath = "."
 testpaths = "tests"
-addopts = "--junitxml=out/tests-report.xml --cov=src --cov-report=html:reports/coverage"
+addopts = "--junitxml=reports/tests/tests-report.xml --cov=src --cov-report=html:reports/coverage"
 
 [tool.coverage.run]
 omit = ["src/data/validate_data.py", "src/data/gx_context_configuration.py", "src/modeling/train.py"]
