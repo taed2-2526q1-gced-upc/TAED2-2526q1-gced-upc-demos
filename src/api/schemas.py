@@ -1,6 +1,9 @@
 from pydantic import BaseModel, field_validator
+from transformers import AutoTokenizer
 
-MAX_REVIEW_LENGTH = 250
+from src.config import MODELS_DIR, PROD_MODEL
+
+MAX_REVIEW_TOKENS = 512
 
 
 class Review(BaseModel):
@@ -11,7 +14,7 @@ class Review(BaseModel):
     def check_string_length(cls, input: str) -> str:
         """
         Validator to ensure that the input review string does not exceed the
-        maximum ammount of characters.
+        maximum ammount of tokens.
 
         Parameters
         ----------
@@ -25,13 +28,16 @@ class Review(BaseModel):
         Raises
         ------
         ValueError
-            If the input review string exceeds the maximum length.
+            If the input review string exceeds the maximum number of tokens.
         """
 
-        if len(input.split()) > MAX_REVIEW_LENGTH:
+        tokenizer = AutoTokenizer.from_pretrained(MODELS_DIR / PROD_MODEL)
+        input_len = len(tokenizer.encode(input))
+        # input_len = len(input)
+
+        if input_len > MAX_REVIEW_TOKENS:
             raise ValueError(
-                f"the input review exceeds with {len(input.split())} the "
-                + f"maximum length of {MAX_REVIEW_LENGTH} words."
+                f"The input review exceeds with {input_len} the " + f"maximum number of {MAX_REVIEW_TOKENS} tokens."
             )
 
         return input

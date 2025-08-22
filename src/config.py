@@ -22,14 +22,18 @@ INTERIM_DATA_DIR = DATA_DIR / "interim"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 EXTERNAL_DATA_DIR = DATA_DIR / "external"
 
-MODELS_DIR = ROOT_DIR / "models"
+TESTS_DIR = ROOT_DIR / "tests"
 
 REPORTS_DIR = ROOT_DIR / "reports"
+
+MODELS_DIR = ROOT_DIR / "models"
+PROD_MODEL = "distilbert-sst-imdb"
 
 SEED = 2025
 TRAIN_SPLIT = 0.7
 VALIDATION_SPLIT = 0.2
 TEST_SPLIT = 0.1
+
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 if HF_TOKEN is None:

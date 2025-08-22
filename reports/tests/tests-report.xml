@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="9" time="30.597" timestamp="2025-08-22T10:35:25.572851+01:00" hostname="LAPTOP-SANTI"><testcase classname="tests.test_api" name="test_root" time="0.783" /><testcase classname="tests.test_api" name="test_review_too_long" time="0.036" /><testcase classname="tests.test_api" name="test_single_review" time="0.436" /><testcase classname="tests.test_data" name="test_clean_data" time="0.917" /><testcase classname="tests.test_model" name="test_model_accuracy" time="13.362"><failure message="AssertionError: Model accuracy is 0.63, which is below the threshold of 0.95.&#10;assert 0.634 &gt; 0.95">pipe = &lt;transformers.pipelines.text_classification.TextClassificationPipeline object at 0x770b5ba221e0&gt;
+test_ds = Dataset({
+    features: ['text', 'labels'],
+    num_rows: 1000
+})
+
+    def test_model_accuracy(pipe, test_ds):
+        """
+        Test the model's accuracy on a small test set.
+        """
+        accuracy = evaluate.load("accuracy")
+        eval = evaluate.evaluator("text-classification")
+        result = eval.compute(
+            model_or_pipeline=pipe,
+            data=test_ds,
+            metric=accuracy,
+            label_column="labels",
+            label_mapping={"negative": 0, "positive": 1},
+        )
+        acc_score = result["accuracy"]
+&gt;       assert acc_score &gt; ACC_THRESHOLD, (
+            f"Model accuracy is {acc_score:.2f}, which is below the threshold of {ACC_THRESHOLD}."
+        )
+E       AssertionError: Model accuracy is 0.63, which is below the threshold of 0.95.
+E       assert 0.634 &gt; 0.95
+
+tests/test_model.py:46: AssertionError</failure></testcase><testcase classname="tests.test_model" name="test_model_predictions[This movie is great!-positive]" time="0.012" /><testcase classname="tests.test_model" name="test_model_predictions[This plot is great!-positive]" time="0.013" /><testcase classname="tests.test_model" name="test_model_predictions[I hated the plot and the characters.-negative]" time="0.010"><failure message="AssertionError: Model predicted positive for 'I hated the plot and the characters.', expected negative.&#10;assert 'positive' == 'negative'&#10;  &#10;  - negative&#10;  + positive">pipe = &lt;transformers.pipelines.text_classification.TextClassificationPipeline object at 0x770b5ba221e0&gt;
+text = 'I hated the plot and the characters.', expected_label = 'negative'
+
+    @pytest.mark.parametrize(
+        "text, expected_label",
+        [
+            ("This movie is great!", "positive"),
+            ("This plot is great!", "positive"),
+            ("I hated the plot and the characters.", "negative"),
+            ("I dislike the plot and the characters.", "negative"),
+        ],
+    )
+    def test_model_predictions(pipe, text, expected_label):
+        """
+        Test the model's predictions when changing a single word in the text.
+        """
+        result = pipe(text)
+&gt;       assert result[0]["label"] == expected_label, (
+            f"Model predicted {result[0]['label']} for '{text}', expected {expected_label}."
+        )
+E       AssertionError: Model predicted positive for 'I hated the plot and the characters.', expected negative.
+E       assert 'positive' == 'negative'
+E
+E         - negative
+E         + positive
+
+tests/test_model.py:65: AssertionError</failure></testcase><testcase classname="tests.test_model" name="test_model_predictions[I dislike the plot and the characters.-negative]" time="0.010"><failure message="AssertionError: Model predicted positive for 'I dislike the plot and the characters.', expected negative.&#10;assert 'positive' == 'negative'&#10;  &#10;  - negative&#10;  + positive">pipe = &lt;transformers.pipelines.text_classification.TextClassificationPipeline object at 0x770b5ba221e0&gt;
+text = 'I dislike the plot and the characters.', expected_label = 'negative'
+
+    @pytest.mark.parametrize(
+        "text, expected_label",
+        [
+            ("This movie is great!", "positive"),
+            ("This plot is great!", "positive"),
+            ("I hated the plot and the characters.", "negative"),
+            ("I dislike the plot and the characters.", "negative"),
+        ],
+    )
+    def test_model_predictions(pipe, text, expected_label):
+        """
+        Test the model's predictions when changing a single word in the text.
+        """
+        result = pipe(text)
+&gt;       assert result[0]["label"] == expected_label, (
+            f"Model predicted {result[0]['label']} for '{text}', expected {expected_label}."
+        )
+E       AssertionError: Model predicted positive for 'I dislike the plot and the characters.', expected negative.
+E       assert 'positive' == 'negative'
+E
+E         - negative
+E         + positive
+
+tests/test_model.py:65: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,17 +1,33 @@
+from contextlib import asynccontextmanager
+from typing import Any
+
 from fastapi import FastAPI, HTTPException
 from loguru import logger
-from transformers import pipeline
+from transformers.pipelines import pipeline
 
 from src.api.schemas import PredictionRequest, PredictionResponse
-from src.config import MODELS_DIR
+from src.config import MODELS_DIR, PROD_MODEL
+
+pipe = None
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global pipe
+
+    # Check the model exist
+    model_path = MODELS_DIR / PROD_MODEL
+    if not model_path.exists():
+        logger.error(f"Model not found: {model_path}")
+        raise ValueError(f"Model not found: {model_path}")
+
+    # Load the trained model and tokenizer from local directory
+    pipe = pipeline(task="text-classification", model=str(model_path), tokenizer=str(model_path))
+    yield
+
 
 # Create a FastAPI instance
-app = FastAPI(title="IMDB Reviews API", version="1.0.0")
-
-# Load the trained model and tokenizer from local directory
-pipeline = pipeline(task="text-classification", model=MODELS_DIR / "distilbert-imdb")
-# Load a Hugging Face model and tokenizer
-# pipe = pipeline("zero-shot-classification", model="sileod/deberta-v3-base-tasksource-nli")
+app = FastAPI(title="IMDB Reviews API", version="1.0.0", lifespan=lifespan)
 
 
 # Root route to return basic information
@@ -59,11 +75,14 @@ def predict_sentiment(requests: PredictionRequest) -> list[PredictionResponse]:
     """
     try:
         reviews = [review.review for review in requests.reviews]
-        labeled_reviews = pipeline(reviews)
+        labeled_reviews: Any = pipe(reviews)
         return [
             PredictionResponse(review=review, label=out["label"], score=out["score"])
             for review, out in zip(reviews, labeled_reviews, strict=False)
         ]
+    except ValueError as value_error:
+        logger.error(f"Value error: {str(value_error)}")
+        raise HTTPException(status_code=400, detail=f"Bad Request: {str(value_error)}") from value_error
     except Exception as exception:
         # Log the exception and return a 500 error
         logger.error(f"Unexpected error: {str(exception)}")
